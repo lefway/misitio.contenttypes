@@ -1,0 +1,20 @@
+<model xmlns="http://namespaces.plone.org/supermodel/schema">
+  <schema>
+    <field name="ubicacion" type="zope.schema.Text">
+      <description>DESCRIPCI&#211;N DE LA UBICACI&#211;N</description>
+      <title>ubicacion</title>
+    </field>
+    <field name="persona_de_contacto" type="zope.schema.TextLine">
+      <description>DESCRIPCION DE LA PERSONA DE CONTACTO</description>
+      <title>persona de contacto</title>
+    </field>
+    <field name="correo" type="zope.schema.TextLine">
+      <description>DESCRIPCI&#211;N DE CORREO ELECTR&#211;NICO</description>
+      <title>correo</title>
+    </field>
+    <field name="telefono" type="zope.schema.TextLine">
+      <description>DESCRIPCI&#211;N DE TEL&#201;FONO</description>
+      <title>telefono</title>
+    </field>
+  </schema>
+</model>
