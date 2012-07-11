@@ -5,6 +5,8 @@ from plone.app.testing import FunctionalTesting
 from plone.app.testing import applyProfile
 from zope.configuration import xmlconfig
 
+from Testing import ZopeTestCase as ztc
+
 class MisitioContenttypes(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE, )
