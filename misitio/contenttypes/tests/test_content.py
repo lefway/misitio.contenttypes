@@ -57,10 +57,7 @@ class TestContent(unittest.TestCase):
     def test_consejo_comunal_allowed_content_types(self):
 
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-
-        oid = idnormalizer.normalize("consejos comunales", 'es')
-        self.portal.invokeFactory('concejo_comunal', id=oid, title='prueba consejo comunal')
-        self.folder = self.portal[oid]
+        self.folder = createConcejoComunal(self.portal,'tipitiripe','concejo_comunal')
         types = ['File', 'Image', 'Link', 'miembro',]
         allowed_types = [t.getId() for t in self.folder.allowedContentTypes()]
         for t in types:
