@@ -10,7 +10,9 @@ from plone.app.testing import TEST_USER_ID, TEST_USER_NAME
 from plone.app.testing import (
    login, setRoles,
    )
-#from plone.dexterity.utils import createContent
+from plone.i18n.normalizer import idnormalizer
+from AccessControl import Unauthorized
+
 
 
 class TestContent(unittest.TestCase):
@@ -40,13 +42,35 @@ class TestContent(unittest.TestCase):
         self.assertTrue('miembro' in existing)
 
 
+#    def test_consejo_comunal_allowed_content_types(self):
+
+#       setRoles(self.portal, TEST_USER_ID, ['Manager'])
+#       login(self.portal, TEST_USER_NAME)
+#       createConcejoComunal(self.portal,'tipitiripe')
+#       self.assertTrue('tipitiripe' in self.portal, 'tipitiripe ConcejoComunal not created.')
+#       setRoles(self.portal, TEST_USER_ID, ['Member'])
+#       cc = self.portal['tipitiripe']
+#       self.assertEqual(cc.getImmediatelyAddableTypes(), ['File', 'Image', 'Link', 'miembro'])
+
+
+
     def test_consejo_comunal_allowed_content_types(self):
 
-       setRoles(self.portal, TEST_USER_ID, ['Manager'])
-       login(self.portal, TEST_USER_NAME)
-       createConcejoComunal(self.portal,'tipitiripe')
-       self.assertTrue('tipitiripe' in self.portal, 'tipitiripe ConcejoComunal not created.')
-       setRoles(self.portal, TEST_USER_ID, ['Member'])
-       cc = self.portal['tipitiripe']
-       self.assertEqual(cc.getImmediatelyAddableTypes(), ['File', 'Image', 'Link', 'miembro'])
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+
+        oid = idnormalizer.normalize("consejos comunales", 'es')
+        self.portal.invokeFactory('concejo_comunal', id=oid, title='prueba consejo comunal')
+        self.folder = self.portal[oid]
+        types = ['File', 'Image', 'Link', 'miembro',]
+        allowed_types = [t.getId() for t in self.folder.allowedContentTypes()]
+        for t in types:
+            self.assertTrue(t in allowed_types)
+        
+	# trying to add any other content type raises an error
+        self.assertRaises(ValueError,
+                          self.folder.invokeFactory, 'Document', 'Registro legal')
+        try:
+            self.folder.invokeFactory('miembro', 'leonardo caballero')
+        except Unauthorized:
+            self.fail()
 
