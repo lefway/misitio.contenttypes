@@ -4,7 +4,6 @@ from zope import schema #estructura de los datos como se van almacenar al ZODB
 from plone.directives import form
 
 class IMiembro(form.Schema):
-
     """Tipo de Contenido Miembro
     """
     

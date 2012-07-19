@@ -14,7 +14,6 @@ from plone.i18n.normalizer import idnormalizer
 from AccessControl import Unauthorized
 
 
-
 class TestContent(unittest.TestCase):
 
     layer = MISITIO_CONTENTTYPES_INTEGRATION_TESTING
@@ -34,31 +33,17 @@ class TestContent(unittest.TestCase):
         self.assertTrue(pid in installed,
                         'package appears not to have been installed')
 
-
     def test_contenttypes_is_registed_contenttypes(self):
         existing = self.types.objectIds()
 
-        self.assertTrue('concejo_comunal' in existing)
-        self.assertTrue('miembro' in existing)
-
-
-#    def test_consejo_comunal_allowed_content_types(self):
-
-#       setRoles(self.portal, TEST_USER_ID, ['Manager'])
-#       login(self.portal, TEST_USER_NAME)
-#       createConcejoComunal(self.portal,'tipitiripe')
-#       self.assertTrue('tipitiripe' in self.portal, 'tipitiripe ConcejoComunal not created.')
-#       setRoles(self.portal, TEST_USER_ID, ['Member'])
-#       cc = self.portal['tipitiripe']
-#       self.assertEqual(cc.getImmediatelyAddableTypes(), ['File', 'Image', 'Link', 'miembro'])
-
-
+        self.assertTrue('misitio.contenttypes.concejo_comunal' in existing)
+        self.assertTrue('misitio.contenttypes.miembro' in existing)
 
     def test_consejo_comunal_allowed_content_types(self):
 
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.folder = createConcejoComunal(self.portal,'tipitiripe','concejo_comunal')
-        types = ['File', 'Image', 'Link', 'miembro',]
+        self.folder = createConcejoComunal(self.portal, 'tipitiripe', 'misitio.contenttypes.concejo_comunal')
+        types = ['File', 'Image', 'Link', 'misitio.contenttypes.miembro',]
         allowed_types = [t.getId() for t in self.folder.allowedContentTypes()]
         for t in types:
             self.assertTrue(t in allowed_types)
@@ -67,7 +52,7 @@ class TestContent(unittest.TestCase):
         self.assertRaises(ValueError,
                           self.folder.invokeFactory, 'Document', 'Registro legal')
         try:
-            self.folder.invokeFactory('miembro', 'leonardo caballero')
+            self.folder.invokeFactory('misitio.contenttypes.miembro', 'leonardo caballero')
         except Unauthorized:
             self.fail()
 
