@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="misitio.contenttypes">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+       <h1 class="documentFirstHeading" tal:content="context/title" />
+
+        <!--<div tal:replace="structure provider:plone.belowcontenttitle" />-->
+
+        <p class="documentDescription" tal:content="context/description" />
+
+        <div class="info_general">
+            <b>Nombres:</b> <span tal:content="context/nombres" /> <br />
+            <b>Apellidos:</b> <span tal:content="context/apellido" /> <br />
+            <b>Telefono de contacto:</b> <span tal:content="context/ci" /> <br />
+            <b>Direccion:</b> <span tal:content="context/direcci_n_f_sica" /> <br />
+            <b>Twitter:</b> <span tal:content="context/twitter" /> <br />
+        </div>
+
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
+	<!--<tal:miembros condition="miembros_cc">
+		<h2 i18n:translate="heading_miembros_concejo_comunal">Miembros del consejo_comunal</h2>
+		<dl>
+		    <tal:block repeat="miembro miembros_cc">
+		        <dt>
+		            <a tal:attributes="href miembro/getURL"
+		               tal:content="miembro/Title" />
+		        </dt>
+		        <dd tal:content="miembro/Description" />
+		    </tal:block>
+		</dl>
+        </tal:miembros>
+
+        <div tal:replace="structure provider:plone.belowcontentbody" />-->
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>
